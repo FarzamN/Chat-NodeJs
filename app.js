@@ -1,4 +1,4 @@
-import express, { json, urlencoded } from "express";
+import express, { json, urlencoded, static as static_ } from "express";
 import { config } from "dotenv";
 import { Dbcon } from "./src/config/Configration.js";
 import chalk from "chalk";
@@ -15,9 +15,10 @@ Dbcon();
 
 app.use(json());
 app.use(urlencoded({ extended: false }));
+app.use(static_("./public"));
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+  return res.sendFile("./public/index.html");
 });
 
 io.on("connection", (socket) => {
